@@ -32,10 +32,3 @@ locals {
 	Version = var.Version
 	init_cli = var.init_cli
 }
-
-locals {
-	init_cli = <<-EOF
-#!/bin/bash -xe
-systemctl status amazon-ssm-agent
-    EOF
-}
