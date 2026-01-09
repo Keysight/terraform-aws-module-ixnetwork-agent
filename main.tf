@@ -12,8 +12,9 @@ resource "aws_instance" "Instance" {
 		Project = local.UserProjectTag
 	}
 	user_data = local.init_cli
-	primary_network_interface {
+	network_interface {
 		network_interface_id = aws_network_interface.Eth0.id
+		device_index = "0"
 	}
 	network_interface {
 		network_interface_id = aws_network_interface.Eth1.id
