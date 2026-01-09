@@ -15,13 +15,17 @@ resource "aws_instance" "Instance" {
 	primary_network_interface {
 		network_interface_id = aws_network_interface.Eth0.id
 	}
+	network_interface {
+		network_interface_id = aws_network_interface.Eth1.id
+		device_index = "1"
+	}
 	root_block_device {
 		delete_on_termination = local.InstanceEbsDeleteOnTermination
 		volume_type = local.InstanceEbsVolumeType
 	}
 	timeouts {
 		create = "9m"
-		delete = "5m"
+		delete = "6m"
 	}
 }
 
@@ -61,12 +65,6 @@ resource "aws_network_interface" "Eth1" {
 		Owner = local.UserEmailTag
 		Project = local.UserProjectTag
 	}
-}
-
-resource "aws_network_interface_attachment" "Eth1" {
-	instance_id = aws_instance.Instance.id
-	network_interface_id = aws_network_interface.Eth1.id
-	device_index = 1
 }
 
 resource "time_sleep" "SleepDelay" {
